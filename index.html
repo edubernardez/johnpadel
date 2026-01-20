@@ -572,7 +572,7 @@
 
     // Click en botones generales
     document.querySelectorAll('.action-wa').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
         const customMsg = btn.getAttribute('data-msg');
         const defaultMsg = `Hola Jhon Padel. Quisiera consultar por clases en ${window.SITE.location}.`;
