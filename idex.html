@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Jhon Padel — Entrenamiento de Alto Nivel</title>
+  <meta name="description" content="Clases de pádel en Rivera. Técnica, táctica y preparación física. Entrenamiento personalizado para todos los niveles." />
+  <meta name="theme-color" content="#050505" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- VARIABLES & THEME --- */
+    :root {
+      /* Palette (Dark Tech) */
+      --bg-depth: #020203;
+      --bg-surface: #0a0a0c;
+      --primary: #46F1C4;       /* Neon Mint */
+      --primary-dim: rgba(70, 241, 196, 0.15);
+      --secondary: #59A6FF;     /* Tech Blue */
+      --accent: #FFB020;        /* Signal Orange */
+      
+      /* UI Colors */
+      --text-main: #FFFFFF;
+      --text-muted: #9CA3AF;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(20, 20, 25, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.06);
+      --glass-highlight: rgba(255, 255, 255, 0.1);
+
+      /* Spacing & Layout */
+      --container-width: 1024px;
+      --header-height: 70px;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      
+      /* Typography (Fluid) */
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --text-xl: clamp(2.5rem, 5vw, 4rem);
+      --text-lg: clamp(1.5rem, 3vw, 2rem);
+      --text-base: clamp(0.95rem, 1vw, 1.05rem);
+    }
+
+    /* --- RESET & BASE --- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      background-color: var(--bg-depth);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      /* Background dinámico */
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(89, 166, 255, 0.08), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(70, 241, 196, 0.06), transparent 40%);
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.2s ease; }
+    ul { list-style: none; }
+    img, svg { display: block; }
+    button, input, textarea { font-family: inherit; }
+
+    /* --- EFECTOS DE FONDO (Tech Grid + Noise) --- */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -1;
+      background-image: linear-gradient(var(--border-light) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    
+    .bg-noise {
+      position: fixed; inset: 0; z-index: -1;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* --- LAYOUT --- */
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* --- HEADER (Glassmorphism) --- */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--header-height);
+      display: flex; align-items: center;
+      background: rgba(2, 2, 3, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 700; font-family: var(--font-heading);
+    }
+    
+    .brand-logo {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #000;
+      display: grid; place-items: center;
+      font-size: 16px; font-weight: 800;
+      box-shadow: 0 0 15px rgba(70, 241, 196, 0.3);
+    }
+
+    .menu { display: flex; gap: 24px; }
+    .menu a {
+      font-size: 14px; font-weight: 500; color: var(--text-muted);
+    }
+    .menu a:hover { color: var(--text-main); }
+
+    /* Mobile Menu Hide */
+    @media (max-width: 768px) {
+      .menu { display: none; }
+    }
+
+    /* --- COMPONENTES UI --- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600; font-size: 14px;
+      cursor: pointer; transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border: 1px solid transparent;
+    }
+    
+    .btn:active { transform: scale(0.96); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #05070A;
+      box-shadow: 0 4px 20px rgba(70, 241, 196, 0.25);
+    }
+    .btn-primary:hover {
+      background: #3BE2B5;
+      box-shadow: 0 6px 25px rgba(70, 241, 196, 0.4);
+    }
+
+    .btn-glass {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--glass-highlight);
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 8px var(--primary); }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      padding-top: calc(var(--header-height) + 60px);
+      padding-bottom: 80px;
+    }
+    
+    .hero-content {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center;
+    }
+
+    .hero-text h1 {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      background: linear-gradient(to right, #fff 40%, rgba(255,255,255,0.5));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      font-size: 1.125rem;
+      max-width: 500px;
+      margin-bottom: 32px;
+    }
+
+    /* Tarjeta visual Tech */
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4/3;
+      background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
+      display: grid; place-items: center;
+    }
+    
+    /* Efecto de luz animada en la tarjeta */
+    .hero-visual::before {
+      content: ''; position: absolute; width: 150%; height: 150%;
+      background: conic-gradient(from 180deg, transparent 70%, var(--primary-dim));
+      animation: spin 8s linear infinite;
+      opacity: 0.6;
+    }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    
+    .visual-inner {
+      position: absolute; inset: 2px;
+      background: var(--bg-surface);
+      border-radius: 18px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 20px;
+    }
+
+    /* --- SECTIONS & CARDS --- */
+    section { padding: 80px 0; }
+    
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-family: var(--font-heading); font-size: var(--text-lg); margin-bottom: 12px; }
+    .section-header p { color: var(--text-muted); max-width: 600px; }
+
+    .grid-cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 24px;
+      border-radius: var(--radius-md);
+      transition: 0.3s ease;
+      position: relative; overflow: hidden;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .card h3 { font-family: var(--font-heading); margin-bottom: 8px; font-size: 1.25rem; }
+    .card p { color: var(--text-muted); font-size: 0.95rem; }
+    
+    .icon-box {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: grid; place-items: center;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    /* --- PLANES --- */
+    .price { font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); margin: 16px 0; }
+    .price small { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+    .features-list li {
+      display: flex; align-items: start; gap: 10px;
+      margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem;
+    }
+    .check-icon { color: var(--primary); }
+
+    /* --- FORMULARIO TECH --- */
+    .form-group { margin-bottom: 16px; }
+    .form-input {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border-light);
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      color: white;
+      outline: none;
+      transition: 0.2s;
+    }
+    .form-input:focus { border-color: var(--primary); background: rgba(0,0,0,0.5); }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding: 40px 0;
+      color: var(--text-muted); font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* --- UTILS --- */
+    .text-gradient {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .hidden-mobile { display: block; }
+
+    /* --- RESPONSIVE MOBILE (La clave) --- */
+    @media (max-width: 900px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-text { display: flex; flex-direction: column; align-items: center; }
+      .hidden-mobile { display: none; }
+      .hero-visual { display: none; } /* Ocultamos visual pesado en móvil */
+    }
+
+    @media (max-width: 600px) {
+      :root { --container-width: 100%; }
+      .container { padding: 0 20px; }
+      .grid-cards { grid-template-columns: 1fr; }
+      .btn { width: 100%; } /* Botones full width en móvil */
+      .nav-right { display: none; } /* Simplificar header en móvil */
+      .brand-logo { width: 32px; height: 32px; font-size: 13px; }
+    }
+
+    /* --- ANIMACIONES DE ENTRADA --- */
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* --- WHATSAPP FLOTANTE --- */
+    .wa-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border-radius: 50%;
+      display: grid; place-items: center;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .wa-float:hover { transform: scale(1.1) rotate(5deg); }
+    .wa-float svg { width: 32px; height: 32px; fill: white; }
+
+  </style>
+</head>
+
+<body>
+  <div class="bg-grid"></div>
+  <div class="bg-noise"></div>
+
+  <script>
+    window.SITE = {
+      name: "Jhon Padel",
+      phone: "59891234567", // CAMBIAR AQUÍ
+      location: "Q3 Padel — Rivera"
+    };
+  </script>
+
+  <header class="header">
+    <div class="container">
+      <div class="nav">
+        <a href="#" class="brand">
+          <div class="brand-logo">JP</div>
+          <span>Jhon Padel</span>
+        </a>
+        <nav class="menu">
+          <a href="#metodo">Método</a>
+          <a href="#planes">Planes</a>
+          <a href="#ubicacion">Ubicación</a>
+        </nav>
+        <div class="nav-right">
+          <a href="#" class="btn btn-glass btn-sm action-wa">Reservar</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text reveal">
+            <div style="margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+              <span class="badge"><span class="badge-dot"></span>Alto Rendimiento</span>
+              <span class="badge">Rivera, UY</span>
+            </div>
+            
+            <h1>Eleva tu nivel de juego <br><span class="text-gradient">Técnica & Táctica</span></h1>
+            <p>Entrenamiento profesional de pádel. Diagnóstico preciso, corrección por video y planes medibles para jugadores que quieren progresar de verdad.</p>
+            
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; width: 100%; justify-content: center;">
+              <a href="#" class="btn btn-primary action-wa">
+                <span>Reservar Clase</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="#planes" class="btn btn-glass">Ver Planes</a>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="visual-inner">
+              <div class="icon-box" style="width: 64px; height: 64px; border-radius: 50%; background: var(--primary); color: #000;">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+              </div>
+              <h3 style="margin: 10px 0;">Análisis Video</h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted);">Corrección biomecánica en tiempo real.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Método de Entrenamiento</h2>
+          <p>Un sistema simple basado en diagnóstico, repetición y situaciones reales de partido.</p>
+        </div>
+
+        <div class="grid-cards">
+          <div class="card reveal">
+            <div class="icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3>Diagnóstico</h3>
+            <p>Evaluación inicial de nivel. Identificamos los 2 o 3 errores clave que frenan tu progreso.</p>
+          </div>
+          <div class="card reveal">
+            <div class="icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg>
+            </div>
+            <h3>Técnica</h3>
+            <p>Limpieza de golpes. Bandeja, volea y salida de pared con biomecánica eficiente.</p>
+          </div>
+          <div class="card reveal">
+            <div class="icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3>Videoanálisis</h3>
+            <p>Visualizá tus errores al instante. Grabación en cámara lenta para correcciones finas.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="planes">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>Planes Disponibles</h2>
+          <p>Formatos adaptados a tu necesidad. Desde corrección individual hasta táctica en pareja.</p>
+        </div>
+
+        <div class="grid-cards">
+          <article class="card reveal" style="border-top: 2px solid var(--primary);">
+            <span class="badge" style="background: var(--primary-dim); color: var(--primary); border:none;">Más Popular</span>
+            <h3>Individual</h3>
+            <p>Foco 100% en tu juego.</p>
+            <div class="price">Consultar</div>
+            <ul class="features-list">
+              <li><span class="check-icon">✓</span> Diagnóstico personalizado</li>
+              <li><span class="check-icon">✓</span> Cubo de bolas intensivo</li>
+              <li><span class="check-icon">✓</span> Corrección técnica profunda</li>
+            </ul>
+            <a href="#" class="btn btn-primary action-wa" data-msg="Hola, me interesa el plan Individual." style="width:100%; margin-top: 20px;">Elegir Individual</a>
+          </article>
+
+          <article class="card reveal">
+            <h3>Parejas (Dúo)</h3>
+            <p>Mejora la química y la táctica.</p>
+            <div class="price">Consultar</div>
+            <ul class="features-list">
+              <li><span class="check-icon">✓</span> Táctica de posicionamiento</li>
+              <li><span class="check-icon">✓</span> Comunicación en pista</li>
+              <li><span class="check-icon">✓</span> Situaciones de partido real</li>
+            </ul>
+            <a href="#" class="btn btn-glass action-wa" data-msg="Hola, me interesa el plan en Parejas." style="width:100%; margin-top: 20px;">Elegir Parejas</a>
+          </article>
+
+          <article class="card reveal">
+            <h3>Grupal / Clínica</h3>
+            <p>Dinámico y competitivo.</p>
+            <div class="price">Consultar</div>
+            <ul class="features-list">
+              <li><span class="check-icon">✓</span> Ejercicios de control</li>
+              <li><span class="check-icon">✓</span> Rey de pista y juegos</li>
+              <li><span class="check-icon">✓</span> Ideal para grupos de amigos</li>
+            </ul>
+            <a href="#" class="btn btn-glass action-wa" data-msg="Hola, me interesa armar un grupo." style="width:100%; margin-top: 20px;">Armar Grupo</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ubicacion">
+      <div class="container">
+        <div class="grid-cards" style="grid-template-columns: 1fr 1fr; align-items: start;">
+          <div class="card reveal">
+            <h3>Dónde Entrenamos</h3>
+            <p style="margin-bottom: 20px;">Q3 Padel — Rivera. Canchas de primera calidad.</p>
+            <div style="background: #222; border-radius: 12px; overflow: hidden; height: 250px; position: relative;">
+               <iframe style="width:100%; height:100%; border:0; opacity: 0.7;" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3472.96987!2d-55.5!3d-30.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDU0JzAwLjAiUyA1NcKwMzAnMDAuMCJX!5e0!3m2!1ses!2suy!4v1600000000000"></iframe>
+            </div>
+          </div>
+
+          <div class="card reveal">
+            <h3>Contacto Rápido</h3>
+            <p style="margin-bottom: 20px;">Escribime directo a WhatsApp completando esto.</p>
+            
+            <form id="waForm">
+              <div class="form-group">
+                <input type="text" id="f_nombre" class="form-input" placeholder="Tu Nombre" required>
+              </div>
+              <div class="form-group">
+                <select id="f_nivel" class="form-input" style="appearance: none;">
+                  <option value="" disabled selected>Tu Nivel Aproximado</option>
+                  <option value="Principiante">Principiante (Nunca jugué)</option>
+                  <option value="Intermedio">Intermedio (Ya juego partidos)</option>
+                  <option value="Avanzado">Avanzado (Compito)</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Enviar a WhatsApp
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; <span id="year"></span> Jhon Padel. Todos los derechos reservados.</p>
+      <p style="opacity: 0.5; margin-top: 8px;">Desarrollado con estándares modernos.</p>
+    </div>
+  </footer>
+
+  <a href="#" class="wa-float action-wa" aria-label="Chat en WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.304-5.235c0-5.443 4.431-9.87 9.883-9.87 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.444-4.432 9.87-9.886 9.87M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/></svg>
+  </a>
+
+  <script>
+    // Año automático
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Animaciones al hacer scroll (Intersection Observer)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Lógica de WhatsApp
+    const waBaseUrl = `https://wa.me/${window.SITE.phone}?text=`;
+
+    function openWa(msg) {
+      window.open(waBaseUrl + encodeURIComponent(msg), '_blank');
+    }
+
+    // Click en botones generales
+    document.querySelectorAll('.action-wa').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const customMsg = btn.getAttribute('data-msg');
+        const defaultMsg = `Hola Jhon Padel. Quisiera consultar por clases en ${window.SITE.location}.`;
+        openWa(customMsg || defaultMsg);
+      });
+    });
+
+    // Envío del formulario
+    document.getElementById('waForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nombre = document.getElementById('f_nombre').value;
+      const nivel = document.getElementById('f_nivel').value;
+      
+      const msg = `Hola Jhon! Soy ${nombre}. Mi nivel es ${nivel}. Me gustaría coordinar una clase.`;
+      openWa(msg);
+    });
+  </script>
+</body>
+</html>
