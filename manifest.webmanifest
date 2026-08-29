@@ -1,21 +1,21 @@
 {
   "name": "John Padel Academy",
   "short_name": "John Padel",
-  "description": "Clases de pádel con método profesional en Q3 Padel.",
+  "description": "Entrenamiento profesional de pádel en Q3 Padel.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#06101e",
-  "theme_color": "#06101e",
+  "background_color": "#030711",
+  "theme_color": "#030711",
   "lang": "es-UY",
   "icons": [
     {
-      "src": "assets/images/icon-192.png",
+      "src": "assets/images/icon-192-v2.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "assets/images/icon-512.png",
+      "src": "assets/images/icon-512-v2.png",
       "sizes": "512x512",
       "type": "image/png"
     }
