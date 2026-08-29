@@ -11,6 +11,7 @@ https://edubernardez.github.io/johnpadel/
 - Dirección visual tecnológica con intro de marca, luces animadas y cancha real.
 - Español y portugués con detección automática y preferencia guardada.
 - Modalidades y precios de Show Aula, clase individual y dupla.
+- Sección “Quién es John” con una nueva imagen de enseñanza creada a partir de sus referencias reales.
 - Formulario sin backend que crea el mensaje y abre WhatsApp.
 - Diseño responsive, accesibilidad, imágenes optimizadas, SEO y metadatos sociales.
 - HTML, CSS y JavaScript vanilla, sin dependencias de ejecución.
