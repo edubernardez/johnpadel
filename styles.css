@@ -45,17 +45,20 @@ button { color: inherit; }
 .boot-aura { position: absolute; width: 50vw; height: 50vw; border-radius: 50%; filter: blur(90px); opacity: .22; }
 .boot-aura-a { top: -24vw; left: -18vw; background: var(--blue); animation: boot-float 3s ease-in-out infinite alternate; }
 .boot-aura-b { right: -20vw; bottom: -28vw; background: var(--yellow); animation: boot-float 3s ease-in-out -.9s infinite alternate-reverse; }
-.boot-inner { position: relative; width: min(70vw, 230px); text-align: center; }
-.boot-code { position: absolute; top: -28px; left: 0; color: rgba(200,226,255,.36); font: 400 7px/1 var(--mono); letter-spacing: .22em; }
+.boot-inner { position: relative; width: min(78vw, 270px); text-align: center; }
+.boot-code { position: absolute; top: -34px; left: 50%; color: rgba(200,226,255,.42); font: 400 7px/1 var(--mono); letter-spacing: .22em; white-space: nowrap; transform: translateX(-50%); }
 .brand-lockup { display: inline-flex; align-items: center; gap: 10px; }
 .brand-lockup > img { width: 54px; height: 61px; object-fit: contain; }
 .brand-lockup > div { display: flex; flex-direction: column; align-items: stretch; text-align: left; }
 .brand-lockup strong { color: #f5f8fc; font: 800 28px/.72 var(--body); letter-spacing: -.055em; }
 .brand-lockup i { width: 100%; height: 2px; margin-top: 7px; background: var(--brand-yellow); transform: skewX(-25deg); }
 .brand-lockup small { margin-top: 5px; color: var(--brand-yellow); font: 700 7px/1 var(--mono); letter-spacing: .28em; }
-.boot-lockup { justify-content: center; animation: logo-enter .9s .12s cubic-bezier(.16,1,.3,1) both, logo-breathe 1.8s 1s ease-in-out infinite alternate; }
-.boot-kicker { margin: 25px 0 15px; color: rgba(229,240,255,.48); font: 400 7px/1 var(--mono); letter-spacing: .15em; text-transform: uppercase; }
-.boot-progress { width: 68%; height: 2px; margin: auto; overflow: hidden; background: rgba(255,255,255,.11); }
+.boot-lockup { justify-content: center; gap: 12px; filter: drop-shadow(0 0 18px rgba(71,201,255,.12)); animation: logo-enter .48s .04s cubic-bezier(.16,1,.3,1) both; }
+.boot-lockup > img { width: 64px; height: 72px; }
+.boot-lockup strong { font-size: 34px; }
+.boot-lockup small { font-size: 8px; }
+.boot-kicker { margin: 30px 0 15px; color: rgba(229,240,255,.58); font: 400 7px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.boot-progress { width: 72%; height: 2px; margin: auto; overflow: hidden; background: rgba(255,255,255,.13); }
 .boot-progress span { display: block; width: 100%; height: 100%; transform-origin: left; background: linear-gradient(90deg, var(--yellow), var(--cyan)); box-shadow: 0 0 16px var(--cyan); animation: load-bar 2.3s .18s cubic-bezier(.65,0,.2,1) both; }
 .boot-data { display: flex; justify-content: space-between; width: 100%; margin: 13px auto 0; color: rgba(229,240,255,.28); font: 400 6px/1 var(--mono); letter-spacing: .08em; }
 body.boot-complete .boot-screen { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -335,8 +338,7 @@ body.boot-complete .boot-screen { opacity: 0; visibility: hidden; pointer-events
 /* Motion */
 @keyframes boot-spin { to { transform: rotate(360deg); } }
 @keyframes boot-float { to { transform: translate(8vw, 6vw) scale(1.15); } }
-@keyframes logo-enter { from { opacity: 0; transform: scale(.86); filter: blur(10px); } to { opacity: 1; transform: none; filter: drop-shadow(0 0 20px rgba(71,201,255,.1)); } }
-@keyframes logo-breathe { to { filter: drop-shadow(0 0 26px rgba(71,201,255,.16)); transform: scale(1.012); } }
+@keyframes logo-enter { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
 @keyframes load-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes header-scan { from { transform: translateX(-25vw); } to { transform: translateX(110vw); } }
 @keyframes hero-breathe { to { transform: scale(1.085); } }
